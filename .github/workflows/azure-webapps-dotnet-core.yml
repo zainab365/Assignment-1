@@ -139,7 +139,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          creds: ${{ secrets.ZAINAB_AZURE_CRED }}
+          creds: ${{ secrets.ZARA_AZURE_CRED }}
           
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
