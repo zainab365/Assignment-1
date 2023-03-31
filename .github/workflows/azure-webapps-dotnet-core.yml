@@ -139,14 +139,14 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          creds: ${{ secrets.ZARA_AZURE_CRED }}
+          creds: ${{ secrets.ZARA_CRED }}
           
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:  
           app-name: ${{ env.AZURE_WEBAPP_NAME_ZARA }}
-          publish-profile: ${{ secrets.ZARA_AZURE_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.ZARA_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     
   
