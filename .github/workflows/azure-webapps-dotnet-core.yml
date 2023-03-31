@@ -23,7 +23,6 @@ env:
   AZURE_WEBAPP_NAME_ZAINAB: zainab-webapp-v1    # set this to the name of your Azure Web App
   AZURE_WEBAPP_NAME_ZARA: zarawebappv1
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  AZURE_WEBAPP_PATH: 'https://zarawebappv1.azurewebsites.net/'
   DOTNET_VERSION: '6.0.*'                 # set this to the .NET Core version to use
   
 
@@ -148,7 +147,7 @@ jobs:
         with:  
           app-name: ${{ env.AZURE_WEBAPP_NAME_ZARA }}
           publish-profile: ${{ secrets.ZARA_AZURE_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PATH }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     
   
   
