@@ -21,8 +21,7 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME_ZAINAB: zainab-webapp-v1    # set this to the name of your Azure Web App
-  AZURE_WEBAPP_NAME_ZARA: zarawebappv1
-  AZURE_WEBAPP_NAME: zaraweb
+  AZURE_WEBAPP_NAME_ZARA: zaraapp
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.*'                 # set this to the .NET Core version to use
   
@@ -116,66 +115,14 @@ jobs:
       - name: Login job
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.ZARA_CRD2 }}
+          creds: ${{ secrets.ZARA_CRED }}
           
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.ZARA_PROFILE2 }}
+          app-name: ${{ env.AZURE_WEBAPP_NAME_ZARA}}
+          publish-profile: ${{ secrets.ZARA_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
   
-  deploy_STG:
-    permissions:
-      contents: none
-    runs-on: ubuntu-latest
-    needs: deploy_TST
-    environment:
-      name: 'STG'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: .net-app
-
-      - name: Login job
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.ZAINAB_AZURE_CRED }}
-          
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME_ZAINAB }}
-          publish-profile: ${{ secrets.ZAINAB_AZURE_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-          
-
-  deploy_PRD:
-    permissions:
-      contents: none
-    runs-on: ubuntu-latest
-    needs: deploy_STG
-    environment:
-      name: 'PRD'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          creds: ${{ secrets.ZARA_CRD2 }}
-          
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:  
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.ZARA_PROFILE2 }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    
-
+  
