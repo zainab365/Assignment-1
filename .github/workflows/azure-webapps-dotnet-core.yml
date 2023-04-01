@@ -120,11 +120,18 @@ jobs:
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
-        with:  
+        with:
           app-name: ${{ env.AZURE_WEBAPP_NAME_ZARA }}
-          publish-profile: ${{ secrets.ZARA_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    
+          app-settings-json: |
+            [
+                {
+                    "name": "UI:Index:Header",
+                    "value": "${{ secrets.INDEX_HEADER }}",
+                    "slotSetting": true
+                }
+            ]
+                publish-profile: ${{ secrets.ZARA_PROFILE }}
+                package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
   
   deploy_STG:
     permissions:
