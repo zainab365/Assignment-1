@@ -3,8 +3,6 @@
 @{
     ViewData["Title"] = "Home page";
 
-var currentEnvironment = ViewData["environment"] as string;
-
 }
 
 <div class="text-center">
@@ -13,5 +11,5 @@ var currentEnvironment = ViewData["environment"] as string;
     <p>V3 </p>
     <p> 3/31/2023 </p>
     <p> 5:38 PM FRIDAY </p>
-    <p>This is the @currentEnvironment Environment</p>
+    <h1 class="display-4">Welcome to the <b>@Model.env_index</b> Environment</h1>
 </div>
